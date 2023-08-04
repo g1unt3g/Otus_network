@@ -6,8 +6,22 @@
     
 Решение:
 
-1. Создать процесс OSPF и добавить в него нужные интерфейсы.
-2. ~~Настроить BFD на OSPF линках~~
+1. Включить feature OSPF и создать процесс OSPF.
+2. Присвоить router id согласно номерам будущих loopback интерфейсов,
+   где третий октет означает принадлежность к spine или leaf, а 4ый порядковый номер
+   типа коммутатора.
+3. Настроить passive-interface default согласно лучшим практикам настройки OSPF.
+4. Настроить линки между коммутаторами как P2P для отключения широковещания и выбора DR/BDR.
+5. Добавить интерфейсы между коммутаторами в OSPF area 0.
+6. Включить анонс маршрутов на линках между коммутаторами.
+
+
+
+
+## Документация адресного пространства
+1. Сеть для loopback интерфейсов 1.1.0.0/23
+2. Сеть для линковых интерфейсов 10.0.0.0/24
+3. Сеть клиентов 172.16.0.0/24
 
 Схема:
 
@@ -20,6 +34,7 @@ interface Ethernet1/1
   no switchport
   medium p2p
   ip address 10.0.0.0/31
+  ip ospf network point-to-point
   no ip ospf passive-interface
   ip router ospf underlay area 0.0.0.0
   no shutdown
@@ -28,6 +43,7 @@ interface Ethernet1/2
   no switchport
   medium p2p
   ip address 10.0.0.2/31
+  ip ospf network point-to-point
   no ip ospf passive-interface
   ip router ospf underlay area 0.0.0.0
   no shutdown
@@ -36,6 +52,7 @@ interface Ethernet1/3
   no switchport
   medium p2p
   ip address 10.0.0.4/31
+  ip ospf network point-to-point
   no ip ospf passive-interface
   ip router ospf underlay area 0.0.0.0
   no shutdown

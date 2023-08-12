@@ -36,7 +36,7 @@
 
 
 1. Проверка доступности интерефейсов коммандой ping.
-
+````
 SSW01# ping 10.0.0.1
 PING 10.0.0.1 (10.0.0.1): 56 data bytes
 64 bytes from 10.0.0.1: icmp_seq=0 ttl=254 time=7.973 ms
@@ -136,11 +136,11 @@ PING 10.0.0.11 (10.0.0.11): 56 data bytes
 --- 10.0.0.11 ping statistics ---
 5 packets transmitted, 5 packets received, 0.00% packet loss
 round-trip min/avg/max = 4.823/6.019/8.426 ms
-SSW01#
+````
 
 2. Выгрузка таблицы маршрутизации SSW01:
-
-LSW01(config-router)# show ip route
+````
+SSW01# show ip route
 IP Route Table for VRF "default"
 '*' denotes best ucast next-hop
 '**' denotes best mcast next-hop
@@ -148,20 +148,23 @@ IP Route Table for VRF "default"
 '%<string>' in via output denotes VRF <string>
 
 10.0.0.0/31, ubest/mbest: 1/0, attached
-    *via 10.0.0.1, Eth1/1, [0/0], 1w1d, direct
-10.0.0.1/32, ubest/mbest: 1/0, attached
-    *via 10.0.0.1, Eth1/1, [0/0], 1w1d, local
-10.0.0.2/31, ubest/mbest: 1/0
-    *via 10.0.0.0, Eth1/1, [115/80], 00:02:57, isis-underlay, L1
-10.0.0.4/31, ubest/mbest: 1/0
-    *via 10.0.0.0, Eth1/1, [115/80], 00:02:57, isis-underlay, L1
-10.0.0.6/31, ubest/mbest: 1/0, attached
-    *via 10.0.0.7, Eth1/2, [0/0], 1w1d, direct
-10.0.0.7/32, ubest/mbest: 1/0, attached
-    *via 10.0.0.7, Eth1/2, [0/0], 1w1d, local
+    *via 10.0.0.0, Eth1/1, [0/0], 1w1d, direct
+10.0.0.0/32, ubest/mbest: 1/0, attached
+    *via 10.0.0.0, Eth1/1, [0/0], 1w1d, local
+10.0.0.2/31, ubest/mbest: 1/0, attached
+    *via 10.0.0.2, Eth1/2, [0/0], 1w1d, direct
+10.0.0.2/32, ubest/mbest: 1/0, attached
+    *via 10.0.0.2, Eth1/2, [0/0], 1w1d, local
+10.0.0.4/31, ubest/mbest: 1/0, attached
+    *via 10.0.0.4, Eth1/3, [0/0], 1w1d, direct
+10.0.0.4/32, ubest/mbest: 1/0, attached
+    *via 10.0.0.4, Eth1/3, [0/0], 1w1d, local
+10.0.0.6/31, ubest/mbest: 1/0
+    *via 10.0.0.1, Eth1/1, [115/80], 00:39:28, isis-underlay, L1
 10.0.0.8/31, ubest/mbest: 1/0
-    *via 10.0.0.6, Eth1/2, [115/80], 00:02:54, isis-underlay, L1
+    *via 10.0.0.3, Eth1/2, [115/80], 00:39:16, isis-underlay, L1
 10.0.0.10/31, ubest/mbest: 1/0
-    *via 10.0.0.6, Eth1/2, [115/80], 00:02:54, isis-underlay, L1
+    *via 10.0.0.5, Eth1/3, [115/80], 00:39:08, isis-underlay, L1
 
-LSW01(config-router)#
+
+````
